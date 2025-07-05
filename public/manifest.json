@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "iConsult Portal",
+  "name": "iConsult Portal | Conecta con Médicos y Especialistas",
+  "description": "Portal de iConsult para pacientes y/o profesionales de la salud, donde podrán conectarse de manera fácil y rápida.",
+  "lang": "es",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +20,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/inicio",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
