@@ -5,8 +5,9 @@ export const Container = styled.div`
   display: flex;
   margin-top: 8rem; // por el header
   flex-direction: column;
-  height: calc(100vh - 8rem); // por el header
-  min-height: 100vh;
+  // height: calc(100vh - 8rem); // por el header
+  height: calc(100vh - 20rem);
+  // min-height: 100vh;
 `;
 /* export const MainContent = styled.div`
   flex: 1;
@@ -29,7 +30,7 @@ export const MainContent = styled.div`
   gap: 16px;
   padding: 1.5rem;
 
-  @media (max-width: 992px) {
+  @media (max-width: 990.5px) {
     display: flex;
     flex-direction: column;
   }
@@ -64,7 +65,7 @@ export const FiltersArea = styled.aside`
 
 export const DoctorArea = styled.main`
   border-radius: 0.5rem;
-  padding: 0 1rem;
+  // padding: 0 1rem;
   // height: 595px;
   // max-height: calc(100vh - 4rem);
   /* 

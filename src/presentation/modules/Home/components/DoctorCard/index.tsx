@@ -13,6 +13,8 @@ import {
   ReserveButton,
   CardFooter,
 } from "./styled";
+import { useHistory } from "react-router-dom";
+import routes from "@/presentation/components/Routes/routingMap";
 
 type Props = {
   name: string;
@@ -31,6 +33,7 @@ const DoctorCard: React.FC<Props> = ({
   address,
   price,
 }) => {
+  const history = useHistory();
   const textModalities = modalities.map((mod) => {
     switch (mod) {
       case "P":
@@ -41,6 +44,12 @@ const DoctorCard: React.FC<Props> = ({
         return mod;
     }
   });
+
+  const handlerGoToSchedulesDoctor = () => {
+    history.push(routes.doctor.schedules);
+  }
+
+
   return (
     <Card>
       <CardHeader>
@@ -49,7 +58,8 @@ const DoctorCard: React.FC<Props> = ({
             style={{
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "flex-start"
+              alignItems: "flex-start",
+              gap: "32px"
             }}>
             <div style={{
               display: "flex",
@@ -84,7 +94,7 @@ const DoctorCard: React.FC<Props> = ({
             </Address>
             <div style={{ textAlign: "right", gap: "12px" }}>
               <Price>S/. {price} por hora</Price>
-              <ReserveButton>
+              <ReserveButton onClick={handlerGoToSchedulesDoctor}>
                 Ver horarios
               </ReserveButton>
             </div>

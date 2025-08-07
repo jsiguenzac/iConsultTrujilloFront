@@ -1,96 +1,133 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-// import { Brand, Menu } from '../../..';
-import constants from '../../../../../core/constants';
+// src/components/Header/index.tsx
+import React, { useState, useRef, useEffect } from 'react';
 import {
-  AyudaButton,
-  HeaderSpacer,
-  HeaderWrapper,
-  ImagenAyuda
+  HeaderContainer,
+  LogoSection,
+  LogoImage,
+  LogoText,
+  SearchInput,
+  NavLinks,
+  UserSection,
+  Avatar,
+  UserName,
+  Arrow,
+  DropdownMenu,
+  DropdownItem,
+  Overlay,
+  ButtonNavLink,
+  MenuButton,
+  SidebarMenu,
+  SidebarHeader,
+  CloseButton
 } from './styled';
-import HeaderDropdown from './components/HeaderDropdown';
-import IconAyuda from '../../../../../assets/icons/icon-ayuda.svg';
-// import useTutorial from '@/presentation/hooks/useTutorial';
+import useIsMobile from '@/presentation/hooks/useIsMobile';
+import { LOGO_TEXT, NAV_LINKS } from './constants';
 
-interface Props {
-  currentDevice: string;
-  onClickLogout: () => void;
-  OnOpenMenuMobile: any;
-}
+type HeaderProps = {
+  logoSrc?: string;
+  avatarSrc?: string;
+  userName?: string;
+  onLogout?: () => void;
+  onProfile?: () => void;
+};
 
-function Header(props: Readonly<Props>) {
-  const { currentDevice, onClickLogout, OnOpenMenuMobile } = props;
-  // const { setTutorial } = useTutorial();
-  // const profile = useSelector((state: any) => state.profile?.data?.profile);
-  // const { data: profilePhoto } = useSelector(
-  //   (state: any) => state.profilePhoto
-  // );
-  const user = {
-    userName: 'Joel', // profile?.firstName?.toLowerCase() || '',
-    userAvatar: constants.DEFAULT_PHOTO, // profilePhoto || constants.DEFAULT_PHOTO,
-    studentCode: '123456', // profile?.studentCode || '',
+const Header: React.FC<HeaderProps> = ({
+  logoSrc,
+  avatarSrc,
+  userName,
+  onLogout,
+  onProfile
+}) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile(true, 768);
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+      setMenuOpen(false);
+    }
   };
 
-  const [storageChange, setStorageChange] = useState(0);
-
   useEffect(() => {
-    const handleStorageChange = () => {
-      setStorageChange((prev: any) => prev + 1);
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  useEffect(() => {
-    const getStartStep = localStorage.getItem('_startStep');
-
-    if (getStartStep) {
-      OnOpenMenuMobile();
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('mousedown', handleOutsideClick);
+    } else {
+      document.body.style.overflow = 'auto';
+      document.removeEventListener('mousedown', handleOutsideClick);
     }
-  }, [storageChange]);
+
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [menuOpen]);
 
   return (
-    <div>
-      <HeaderWrapper id="header-wrapper" data-testid="cmp-header-wrapper">
-        <HeaderSpacer>
-          {/* <Menu
-            OnOpenMenuMobile={OnOpenMenuMobile}
-            currentDevice={currentDevice}
-          /> */}
-          {/* <Brand /> */}
-        </HeaderSpacer>
-        <HeaderSpacer>
-          {/* TEMPORAL OCULTAR NOTIFICACIONES */}
-          {/* <HeaderNotification
-            handleOpenModal={handleOpenModal}
-            handleSelectAcademicCalendar={handleSelectAcademicCalendar}
-          /> */}
-          <AyudaButton
-            data-testid="helpButton"
-            onClick={() => {
-              // setTutorial(true);
+    <>
+      {menuOpen && <Overlay onClick={() => setMenuOpen(false)} />}
+      <HeaderContainer>
+        {isMobile && (
+          <MenuButton onClick={() => setMenuOpen(true)}>
+            <span />
+            <span />
+            <span />
+          </MenuButton>
+        )}
 
-              const DOM = document.getElementById('btnGo');
-              const DOM_SIDEBAR = document.getElementById('sidebarElement');
+        <LogoSection>
+          {logoSrc && <LogoImage src={logoSrc} alt="Logo" />}
+          {LOGO_TEXT && (
+            <LogoText>
+              <button onClick={() => { alert(LOGO_TEXT); }}>{LOGO_TEXT}</button>
+            </LogoText>
+          )}
+          {!isMobile && <SearchInput type="text" placeholder="Buscar médico por nombre" />}
+        </LogoSection>
 
-              if (DOM_SIDEBAR) {
-                DOM_SIDEBAR.scrollTop = 0;
-              }
+        {!isMobile && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <NavLinks>
+              {NAV_LINKS?.map((link) => (
+                <ButtonNavLink key={link.name} onClick={() => setMenuOpen(false)}>
+                  {link.name}
+                </ButtonNavLink>
+              ))}
+            </NavLinks>
+            <UserSection onClick={() => setMenuOpen(!menuOpen)} ref={menuRef}>
+              <Avatar src={avatarSrc} alt="Avatar" />
+              <UserName>{userName}</UserName>
+              <Arrow open={menuOpen} />
+              {menuOpen && (
+                <DropdownMenu>
+                  <DropdownItem onClick={onProfile}>👤 Perfil</DropdownItem>
+                  <DropdownItem onClick={onLogout}>↩️ Cerrar sesión</DropdownItem>
+                </DropdownMenu>
+              )}
+            </UserSection>
+          </div>
+        )}
 
-              if (DOM) {
-                DOM?.click();
-              }
-            }}
-          >
-            <ImagenAyuda src={IconAyuda} />
-          </AyudaButton>
-          <HeaderDropdown user={user} onClickLogOut={() => onClickLogout()} />
-        </HeaderSpacer>
-      </HeaderWrapper>
-    </div>
+        {/* {!isMobile && (
+        )} */}
+      </HeaderContainer>
+
+      {menuOpen && isMobile && (
+        <SidebarMenu ref={menuRef} data-testid="sidebar-menu">
+          <SidebarHeader>
+            <LogoText>{LOGO_TEXT}</LogoText>
+            <CloseButton onClick={() => setMenuOpen(false)}>×</CloseButton>
+          </SidebarHeader>
+          <Avatar src={avatarSrc} alt="Avatar" style={{ margin: '1rem auto' }} />
+          <UserName style={{ textAlign: 'center', marginBottom: '1rem' }}>{userName}</UserName>
+          {NAV_LINKS?.map((link) => (
+            <DropdownItem key={link.name} onClick={() => setMenuOpen(false)}>
+              {link.name}
+            </DropdownItem>
+          ))}
+          <DropdownItem onClick={onProfile}>👤 Perfil</DropdownItem>
+          <DropdownItem onClick={onLogout}>↩️ Cerrar sesión</DropdownItem>
+        </SidebarMenu>
+      )}
+    </>
   );
-}
+};
 
 export default Header;

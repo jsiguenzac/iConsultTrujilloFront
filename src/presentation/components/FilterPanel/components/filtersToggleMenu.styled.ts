@@ -7,7 +7,7 @@ export const MenuWrapper = styled.div`
   padding: 1rem;
   gap: 12px;
 
-  @media (min-width: 992px) {
+  @media (min-width: 990.5px) {
     display: none;
   }
 `;

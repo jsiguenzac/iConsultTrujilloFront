@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import * as screens from '../../modules';
 import Layout from '../Layout';
 import routes from './routingMap';
@@ -10,7 +10,7 @@ export default function UserRoute() {
   // const { isSimulator } = useSelector((state: any) => state.simulator);
   const isSimulator = false;
   return (
-    <>
+    <BrowserRouter>
       <Layout />
       <div style={{ marginBottom: isSimulator ? 70 : 0 }}>
         <Switch>
@@ -42,6 +42,6 @@ export default function UserRoute() {
           <Redirect to="/inicio" />
         </Switch>
       </div>
-    </>
+    </BrowserRouter>
   );
 }

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Card = styled.div`
   background-color: #fff;
-  padding: 1rem;
+  padding: 16px;
   border-radius: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border-left: 4px solid transparent;
@@ -88,12 +88,13 @@ export const ReserveButton = styled.button`
   border: none;
   height: 3rem;
   color: #fff;
-  padding: 0.25rem 0.75rem;
+  padding: 8px;
   border-radius: 8px;
   transition: background 0.2s;
 
   &:hover {
     background-color: #2563eb;
+    cursor: pointer;
   }
 `;
 

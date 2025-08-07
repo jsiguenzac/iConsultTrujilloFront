@@ -4,7 +4,6 @@ import AvailabilityHeader from './components/AvailabilityHeader';
 import WeeklyCalendar from '@/presentation/reusables/WeeklyCalendar';
 import { PageContainer, ContentWrapper } from './styled';
 import { DoctorInfo, ScheduleSlot } from './types';
-import Header from '../Home/components/HomeHeader';
 import { FooterArea } from '../Home/styles';
 import FooterView from '@/presentation/components/footer/FooterView';
 
@@ -20,23 +19,50 @@ const dummyDoctor: DoctorInfo = {
 };
 
 const dummySchedule: ScheduleSlot[] = [
-    { day: 'Lun 05', time: '08:00', status: 'available_virtual' },
-    { day: 'Lun 05', time: '09:00', status: 'occupied' },
-    { day: 'Mar 06', time: '09:00', status: 'available_virtual' },
-    { day: 'Mié 07', time: '09:00', status: 'occupied' },
-    { day: 'Vie 09', time: '08:00', status: 'available_presencial' },
-    { day: 'Sáb 10', time: '09:00', status: 'occupied' },
+    {
+        day: 'Lun 05',
+        today: true,
+        schedules: [
+            { time: '08:00', status: 'D', modality: 'V' },
+            { time: '09:00', status: 'O', modality: 'P' },
+            { time: '10:00', status: 'O', modality: 'P' },
+            { time: '19:00', status: 'R', modality: 'V' },
+            { time: '20:00', status: 'O', modality: 'P' },
+        ]
+    },
+    {
+        day: 'Mar 06',
+        today: false,
+        schedules: [
+            { time: '09:00', status: 'R', modality: 'V' },
+            { time: '20:00', status: 'D', modality: 'V' }
+        ]
+    },
+    {
+        day: 'Mié 07',
+        today: false,
+        schedules: [
+            { time: '20:00', status: 'O', modality: 'V' },
+            { time: '21:00', status: 'D', modality: 'P' }
+        ]
+    },
+    {
+        day: 'Jue 08',
+        today: false,
+        schedules: []
+    },
+    {
+        day: 'Vie 09',
+        today: false,
+        schedules: [
+            { time: '21:00', status: 'D', modality: 'P' }
+        ]
+    }
 ];
 
 const DoctorScheduleView = () => (
     <>
         <PageContainer>
-            <Header
-                avatarSrc="https://scontent.flim18-2.fna.fbcdn.net/v/t39.30808-1/495727835_3146161048871182_6283638010870078510_n.jpg?stp=c0.466.1536.1536a_dst-jpg_s200x200_tt6&_nc_cat=111&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeHbfySSiGUHnRaqH-D-EmxVLUxj0N5Am4UtTGPQ3kCbhUM93ZRGD9wtZtOJzAD3Uq42oRkYvklM-NwpFwJE7wqY&_nc_ohc=TluVHu0sTQsQ7kNvwHLM5-5&_nc_oc=AdkKpkB6RJIijJFReD2OPtdLz5E91NWfAAJRsMcSV7Vz6QBSYvtOIljjqFNxeVBg5F0&_nc_zt=24&_nc_ht=scontent.flim18-2.fna&_nc_gid=2HyeX81_tlPk8DY51t0THg&oh=00_AfNbJV037lwiWmAL4yAV-OTDXE4UXraotkb3bOYXYSkjzw&oe=686D49FD"
-                userName="Joel Sigüenza"
-                onProfile={() => console.log('Ir a perfil')}
-                onLogout={() => console.log('Cerrar sesión')}
-            />
             <DoctorProfileCard doctor={dummyDoctor} />
             <ContentWrapper>
                 <AvailabilityHeader />

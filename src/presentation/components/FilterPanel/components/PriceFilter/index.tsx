@@ -34,7 +34,7 @@ const PriceFilter: React.FC = () => {
           }}
         />
         <div style={{ display: "flex", justifyContent: "center", gap: "8px" }}>
-          Precio Elegido:
+          Precio elegido:
           <ThumbValue style={{ left: `${thumbPosition}px` }}>
             S/. {valuePrice}
           </ThumbValue>

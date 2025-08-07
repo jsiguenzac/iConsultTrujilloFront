@@ -11,6 +11,7 @@ import {
   Icon,
   BottomText,
 } from './styled';
+import { FaEnvelope, FaPhone } from 'react-icons/fa';
 
 // import { FaEnvelope, FaPhone } from 'react-icons/fa';
 
@@ -25,13 +26,13 @@ const FooterView = () => {
         <FooterColumn>
           <Title>Soporte</Title>
           <Text>
-            <Icon>{/* <FaEnvelope /> */}</Icon> soporte-consult@gmail.com
+            <Icon><FaEnvelope /></Icon> soporte-consult@gmail.com
           </Text>
           <Text>
-            <Icon>{/* <FaPhone /> */}</Icon> +880 123 456 789
+            <Icon><FaPhone /></Icon> +880 123 456 789
           </Text>
           <Text>
-            <Icon>{/* <FaPhone /> */}</Icon> +880 123 456 789
+            <Icon><FaPhone /></Icon> +880 123 456 789
           </Text>
         </FooterColumn>
 
@@ -50,7 +51,7 @@ const FooterView = () => {
           <LinkItem>Diseño móvil</LinkItem>
           <LinkItem>Programación</LinkItem>
         </FooterColumn>
-      </FooterContent>
+      </FooterContent >
 
       <BottomText>
         © Todos los derechos reservados - iConsult Trujillo 2025

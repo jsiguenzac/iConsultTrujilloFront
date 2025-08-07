@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   flex: 1;
-  height: 485px;
+  height: calc(100vh - 20rem);
   // // min-height: calc(100vh - 4rem); /* Ajusta según tu header/footer */
   display: flex;
   flex-direction: column;

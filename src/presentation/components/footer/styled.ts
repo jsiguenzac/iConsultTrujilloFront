@@ -33,6 +33,7 @@ export const FooterContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   max-width: 1200px;
   margin: auto;
   text-align: left;
@@ -43,7 +44,7 @@ export const FooterColumn = styled.div`
   flex: 1 1 180px;
   min-width: 150px;
   width: auto;
-  text-align: center;  
+  text-align: center;
 
   /* @media (max-width: 768px) {
     text-align: center;
@@ -55,6 +56,9 @@ export const Logo = styled.h2`
   font-weight: bold;
   font-size: 40px;
   line-height: 1.2;
+  margin: 0;
+  text-align: center;
+  cursor: default;
 `;
 
 export const Title = styled.h3`
